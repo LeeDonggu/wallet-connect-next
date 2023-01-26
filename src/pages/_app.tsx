@@ -16,7 +16,6 @@ import {
   optimism,
   polygon,
 } from "wagmi/chains";
-import Navigation from "../components/Navigation";
 import "../styles.css";
 
 // 1. Get projectID at https://cloud.walletconnect.com
@@ -52,7 +51,6 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       {ready ? (
         <WagmiConfig client={wagmiClient}>
-          <Navigation />
           <Component {...pageProps} />
         </WagmiConfig>
       ) : null}
