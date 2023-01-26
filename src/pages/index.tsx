@@ -1,4 +1,5 @@
 import CustomButton from "@/components/CustomButton";
+import RNSendButton from "@/components/RNSendButton";
 import { SignMessageButton } from "@/components/SignMessageButton";
 
 export default function Home() {
@@ -8,6 +9,8 @@ export default function Home() {
         <CustomButton />
 
         <SignMessageButton />
+
+        <RNSendButton />
       </div>
     </>
   );
