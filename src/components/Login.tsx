@@ -90,7 +90,7 @@ export default function Login() {
       close();
     }
 
-    alert("시그니처 인증 시작합니다.");
+    // alert("시그니처 인증 시작합니다.");
     signMessage({ message: timeStamp });
   }
 
