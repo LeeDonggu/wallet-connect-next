@@ -91,9 +91,7 @@ export default function Login() {
     }
 
     alert("시그니처 인증 시작합니다.");
-    setTimeout(() => {
-      signMessage({ message: timeStamp });
-    }, 3000);
+    signMessage({ message: timeStamp });
   }
 
   /**
@@ -144,6 +142,7 @@ export default function Login() {
       <p>연결 여부 : {String(isConnected)}</p>
       <p>지갑 주소 : {address}</p>
       <p>체인 정보 : {chainId}</p>
+      <p>DOM Acitve Status : {String(isDomActive)}</p>
     </div>
   );
 }
