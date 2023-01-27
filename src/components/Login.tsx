@@ -25,7 +25,7 @@ export default function Login() {
   useLayoutEffect(() => {
     if (!isConnected) return;
     disconnect();
-  }, [isConnected, disconnect]);
+  }, []);
 
   /**
    * WalletConnect 연동을 위한 Web3Modal을 연다.
