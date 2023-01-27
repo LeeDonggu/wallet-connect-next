@@ -84,11 +84,11 @@ export default function Login() {
   // }, [close, isConnected, isDomActive, isOpen, signMessage]);
 
   function signatureStart() {
-    if (!isConnected || !isDomActive) return;
+    if (!isConnected) return;
 
-    if (isOpen) {
-      close();
-    }
+    // if (isOpen) {
+    //   close();
+    // }
 
     // alert("시그니처 인증 시작합니다.");
     signMessage({ message: timeStamp });
