@@ -31,26 +31,26 @@ export default function Login() {
    * 이벤트 리스너를 통해 DOM이 active 된 상태를 트래킹하고
    * active 되었다면 요청하기 위해 이벤트 리스너를 사용한다.
    */
-  const handler = throttle((event) => {
-    if (event === "visibilitychange") {
-      setIsDomActive(!document.hidden);
-    }
-    if (event === "focus") {
-      setIsDomActive(true);
-    }
-    if (event === "blur") {
-      setIsDomActive(false);
-    }
-  }, 1000);
+  // const handler = throttle((event) => {
+  //   if (event === "visibilitychange") {
+  //     setIsDomActive(!document.hidden);
+  //   }
+  //   if (event === "focus") {
+  //     setIsDomActive(true);
+  //   }
+  //   if (event === "blur") {
+  //     setIsDomActive(false);
+  //   }
+  // }, 1000);
 
-  document.addEventListener("visibilitychange", handler);
-  window.addEventListener("focus", handler);
-  window.addEventListener("blur", handler);
+  // document.addEventListener("visibilitychange", handler);
+  // window.addEventListener("focus", handler);
+  // window.addEventListener("blur", handler);
 
-  useLayoutEffect(() => {
-    if (!isConnected) return;
-    disconnect();
-  }, []);
+  // useLayoutEffect(() => {
+  //   if (!isConnected) return;
+  //   disconnect();
+  // }, []);
 
   /**
    * WalletConnect 연동을 위한 Web3Modal을 연다.
@@ -97,29 +97,29 @@ export default function Login() {
   /**
    * 시그니처 인증에 실패했다면 기존에 연결된 지갑의 연결을 제거한다.
    */
-  useEffect(() => {
-    if (!error) return;
-    alert(`시그니처 인증에 실패했습니다.\n${error.message}`);
-    disconnect();
-  }, [disconnect, error]);
+  // useEffect(() => {
+  //   if (!error) return;
+  //   alert(`시그니처 인증에 실패했습니다.\n${error.message}`);
+  //   disconnect();
+  // }, [disconnect, error]);
 
   /**
    * 시그니처 인증에 성공했다면 RN 프로젝트에 지갑 주소, 타임스탬프, 시그니처 인증 주소를 전달한다.
    */
-  useEffect(() => {
-    if (!data || !address) return;
-    /**
-     * NOTE
-     * RN 프로젝트의 WebView에서 페이지를 열 때 userAgent를 papyrus로 전달받는다.
-     */
-    const isRNProject = navigator.userAgent === "papyrus";
+  // useEffect(() => {
+  //   if (!data || !address) return;
+  //   /**
+  //    * NOTE
+  //    * RN 프로젝트의 WebView에서 페이지를 열 때 userAgent를 papyrus로 전달받는다.
+  //    */
+  //   const isRNProject = navigator.userAgent === "papyrus";
 
-    if (isRNProject && window.ReactNativeWebView) {
-      window.ReactNativeWebView.postMessage(
-        JSON.stringify(data, address as any, timeStamp)
-      );
-    }
-  }, [data, address, timeStamp]);
+  //   if (isRNProject && window.ReactNativeWebView) {
+  //     window.ReactNativeWebView.postMessage(
+  //       JSON.stringify(data, address as any, timeStamp)
+  //     );
+  //   }
+  // }, [data, address, timeStamp]);
 
   function submitUserAgentToRN() {
     if (window.ReactNativeWebView) {
