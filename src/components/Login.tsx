@@ -68,7 +68,22 @@ export default function Login() {
   /**
    * WalletConnect 연동이 완료되면 시그니처 인증을 진행한다.
    */
-  useEffect(() => {
+  // useEffect(() => {
+  //   function signatureStart() {
+  //     if (!isConnected || !isDomActive) return;
+
+  //     if (isOpen) {
+  //       close();
+  //     }
+
+  //     alert("시그니처 인증 시작합니다.");
+  //     setTimeout(() => {
+  //       signMessage({ message: timeStamp });
+  //     }, 3000);
+  //   }
+  // }, [close, isConnected, isDomActive, isOpen, signMessage]);
+
+  function signatureStart() {
     if (!isConnected || !isDomActive) return;
 
     if (isOpen) {
@@ -79,7 +94,7 @@ export default function Login() {
     setTimeout(() => {
       signMessage({ message: timeStamp });
     }, 3000);
-  }, [close, isConnected, isDomActive, isOpen, signMessage]);
+  }
 
   /**
    * 시그니처 인증에 실패했다면 기존에 연결된 지갑의 연결을 제거한다.
@@ -124,6 +139,7 @@ export default function Login() {
       <button onClick={isConnected ? () => disconnect() : () => {}}>
         {isConnected ? "연결 끊기" : "연결이 되어있지 않습니다."}
       </button>
+      <button onClick={signatureStart}>{"수동 시그니처 인증"}</button>
       <button onClick={submitUserAgentToRN}>{"유저 에이전트 확인하기"}</button>
       <p>연결 여부 : {String(isConnected)}</p>
       <p>지갑 주소 : {address}</p>
