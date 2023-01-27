@@ -70,7 +70,11 @@ export default function Login() {
    */
   useEffect(() => {
     if (!isConnected || !isDomActive) return;
-    signMessage({ message: timeStamp });
+
+    alert("시그니처 인증 시작합니다.");
+    setTimeout(() => {
+      signMessage({ message: timeStamp });
+    }, 3000);
   }, [isConnected, isDomActive, signMessage]);
 
   /**
