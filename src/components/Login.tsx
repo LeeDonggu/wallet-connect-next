@@ -10,7 +10,7 @@ export default function Login() {
   const recoveredAddress = useRef<string>();
 
   const [loading, setLoading] = useState(false);
-  const { open } = useWeb3Modal();
+  const { isOpen, open, close } = useWeb3Modal();
   const { address, connector, isConnected } = useAccount();
   const chainId = useChainId();
   const { disconnect } = useDisconnect();
@@ -71,11 +71,15 @@ export default function Login() {
   useEffect(() => {
     if (!isConnected || !isDomActive) return;
 
+    if (isOpen) {
+      close();
+    }
+
     alert("시그니처 인증 시작합니다.");
     setTimeout(() => {
       signMessage({ message: timeStamp });
     }, 3000);
-  }, [isConnected, isDomActive, signMessage]);
+  }, [close, isConnected, isDomActive, isOpen, signMessage]);
 
   /**
    * 시그니처 인증에 실패했다면 기존에 연결된 지갑의 연결을 제거한다.
