@@ -69,9 +69,9 @@ export default function Login() {
    * WalletConnect 연동이 완료되면 시그니처 인증을 진행한다.
    */
   useEffect(() => {
-    if (!isConnected) return;
+    if (!isConnected || !isDomActive) return;
     signMessage({ message: timeStamp });
-  }, [isConnected, signMessage]);
+  }, [isConnected, isDomActive, signMessage]);
 
   /**
    * 시그니처 인증에 실패했다면 기존에 연결된 지갑의 연결을 제거한다.
@@ -86,7 +86,7 @@ export default function Login() {
    * 시그니처 인증에 성공했다면 RN 프로젝트에 지갑 주소, 타임스탬프, 시그니처 인증 주소를 전달한다.
    */
   useEffect(() => {
-    if (!data || !address || !isDomActive) return;
+    if (!data || !address) return;
     /**
      * NOTE
      * RN 프로젝트의 WebView에서 페이지를 열 때 userAgent를 papyrus로 전달받는다.
@@ -98,7 +98,7 @@ export default function Login() {
         JSON.stringify(data, address as any, timeStamp)
       );
     }
-  }, [data, address, timeStamp, isDomActive]);
+  }, [data, address, timeStamp]);
 
   function submitUserAgentToRN() {
     if (window.ReactNativeWebView) {
