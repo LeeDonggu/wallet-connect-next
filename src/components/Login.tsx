@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { useWeb3Modal } from "@web3modal/react";
 import { useAccount, useChainId, useDisconnect, useSignMessage } from "wagmi";
 import { verifyMessage } from "ethers/lib/utils";
@@ -22,6 +22,11 @@ export default function Login() {
     },
   });
 
+  useLayoutEffect(() => {
+    if (!isConnected) return;
+    disconnect();
+  }, [isConnected, disconnect]);
+
   /**
    * WalletConnect 연동을 위한 Web3Modal을 연다.
    */
@@ -41,7 +46,7 @@ export default function Login() {
   useEffect(() => {
     if (!isConnected) return;
     signMessage({ message: timeStamp });
-  }, [isConnected]);
+  }, [isConnected, signMessage]);
 
   /**
    * 시그니처 인증에 실패했다면 기존에 연결된 지갑의 연결을 제거한다.
@@ -50,7 +55,7 @@ export default function Login() {
     if (!error) return;
     alert(`시그니처 인증에 실패했습니다.\n${error.message}`);
     disconnect();
-  }, [error]);
+  }, [disconnect, error]);
 
   /**
    * 시그니처 인증에 성공했다면 RN 프로젝트에 지갑 주소, 타임스탬프, 시그니처 인증 주소를 전달한다.
