@@ -1,16 +1,10 @@
-import CustomButton from "@/components/CustomButton";
-import RNSendButton from "@/components/RNSendButton";
-import { SignMessageButton } from "@/components/SignMessageButton";
+import Login from "@/components/Login";
 
 export default function Home() {
   return (
     <>
       <div className="container">
-        <CustomButton />
-
-        <SignMessageButton />
-
-        <RNSendButton />
+        <Login />
       </div>
     </>
   );
