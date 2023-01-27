@@ -62,10 +62,13 @@ export default function Login() {
    */
   useEffect(() => {
     if (!data || !address) return;
-    const isMobile = navigator.userAgent.match(
-      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
-    );
-    if (isMobile && window.ReactNativeWebView) {
+    /**
+     * NOTE
+     * RN 프로젝트의 WebView에서 페이지를 열 때 userAgent를 papyrus로 전달받는다.
+     */
+    const isRNProject = navigator.userAgent === "papyrus";
+
+    if (isRNProject && window.ReactNativeWebView) {
       window.ReactNativeWebView.postMessage(
         JSON.stringify(data, address as any, timeStamp)
       );
@@ -80,10 +83,6 @@ export default function Login() {
     }
   }
 
-  console.log("data = ", data);
-  console.log("connector = ", connector?.chains);
-  console.log("connector = ", connector?.getChainId());
-
   return (
     <div>
       <button onClick={!loading ? onOpen : () => {}} disabled={loading}>
@@ -92,9 +91,7 @@ export default function Login() {
       <button onClick={isConnected ? () => disconnect() : () => {}}>
         {isConnected ? "연결 끊기" : "연결이 되어있지 않습니다."}
       </button>
-      <button onClick={submitUserAgentToRN}>
-        {"유저 에이전트 확인하기"}
-      </button>
+      <button onClick={submitUserAgentToRN}>{"유저 에이전트 확인하기"}</button>
       <p>연결 여부 : {String(isConnected)}</p>
       <p>지갑 주소 : {address}</p>
       <p>체인 정보 : {chainId}</p>
