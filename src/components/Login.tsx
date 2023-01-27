@@ -62,12 +62,23 @@ export default function Login() {
    */
   useEffect(() => {
     if (!data || !address) return;
-    if (window.ReactNativeWebView) {
+    const isMobile = navigator.userAgent.match(
+      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
+    );
+    if (isMobile && window.ReactNativeWebView) {
       window.ReactNativeWebView.postMessage(
         JSON.stringify(data, address as any, timeStamp)
       );
     }
   }, [data, address, timeStamp]);
+
+  function submitUserAgentToRN() {
+    if (window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify(`userAgent =  ${navigator.userAgent}`)
+      );
+    }
+  }
 
   console.log("data = ", data);
   console.log("connector = ", connector?.chains);
@@ -80,6 +91,9 @@ export default function Login() {
       </button>
       <button onClick={isConnected ? () => disconnect() : () => {}}>
         {isConnected ? "연결 끊기" : "연결이 되어있지 않습니다."}
+      </button>
+      <button onClick={submitUserAgentToRN}>
+        {"유저 에이전트 확인하기"}
       </button>
       <p>연결 여부 : {String(isConnected)}</p>
       <p>지갑 주소 : {address}</p>
