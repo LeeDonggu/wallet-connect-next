@@ -137,7 +137,7 @@ export default function Login() {
   function submitWalletInfoToRN() {
     if (window.ReactNativeWebView) {
       window.ReactNativeWebView.postMessage(
-        JSON.stringify(signData, data as any, address as any, timeStamp as any)
+        JSON.stringify(signData, data as any, address as any)
       );
     }
   }
