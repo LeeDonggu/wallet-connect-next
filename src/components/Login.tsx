@@ -16,11 +16,16 @@ export default function Login() {
   const { disconnect } = useDisconnect();
 
   const [isDomActive, setIsDomActive] = useState<boolean>(true);
+  const [signData, setSignData] = useState<any>({
+    message: "",
+    data: "",
+  });
 
   const { data, error, isLoading, signMessage } = useSignMessage({
     onSuccess(data, variables) {
       // Verify signature when sign message succeeds
       const address = verifyMessage(variables.message, data);
+      setSignData({ message: variables.message, data: data });
       recoveredAddress.current = address;
     },
   });
@@ -129,6 +134,14 @@ export default function Login() {
     }
   }
 
+  function submitWalletInfoToRN() {
+    if (window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify(signData, data, address as any, timeStamp as string)
+      );
+    }
+  }
+
   return (
     <div>
       <button onClick={!loading ? onOpen : () => {}} disabled={loading}>
@@ -139,6 +152,8 @@ export default function Login() {
       </button>
       <button onClick={signatureStart}>{"수동 시그니처 인증"}</button>
       <button onClick={submitUserAgentToRN}>{"유저 에이전트 확인하기"}</button>
+      <button onClick={submitWalletInfoToRN}>{"지갑 정보 전달하기"}</button>
+
       <p>연결 여부 : {String(isConnected)}</p>
       <p>지갑 주소 : {address}</p>
       <p>체인 정보 : {chainId}</p>
