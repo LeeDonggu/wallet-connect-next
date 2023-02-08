@@ -135,15 +135,15 @@ export default function Login() {
   }
 
   function submitWalletInfoToRN() {
-    const signatureMessage = "0979112e-15a1-4d68-9bb7-35632c27c241";
-    const signature =
-      "0x698ea9330d4896d620c2e2ef5f906bc41e5c4a712beef276ef7fa27ebd24abf31c32ccc543c03e800cf595c738991a65aea06436fc7bb19273cfda79756e65571b";
-    const walletAddr = "0xB4899Db96BCFF247908F29A4B038498B7A21040E";
+    const json = {
+      signatureMessage: "0979112e-15a1-4d68-9bb7-35632c27c241",
+      signature:
+        "0x698ea9330d4896d620c2e2ef5f906bc41e5c4a712beef276ef7fa27ebd24abf31c32ccc543c03e800cf595c738991a65aea06436fc7bb19273cfda79756e65571b",
+      walletAddr: "0xB4899Db96BCFF247908F29A4B038498B7A21040E",
+    };
 
     if (window.ReactNativeWebView) {
-      window.ReactNativeWebView.postMessage(
-        JSON.stringify(signatureMessage, signature as any, walletAddr)
-      );
+      window.ReactNativeWebView.postMessage(JSON.stringify(json));
     }
   }
 
