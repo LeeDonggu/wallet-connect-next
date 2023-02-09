@@ -127,6 +127,7 @@ export default function Login() {
   // }, [data, address, timeStamp]);
 
   function submitUserAgentToRN() {
+    alert(window.ReactNativeWebView);
     if (window.ReactNativeWebView) {
       window.ReactNativeWebView.postMessage(
         JSON.stringify(`userAgent =  ${navigator.userAgent}`)
