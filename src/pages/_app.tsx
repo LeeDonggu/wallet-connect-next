@@ -34,6 +34,7 @@ const { provider } = configureChains(chains, [
 /**
  * FIXME
  * WC v2 사용 여부 파악 필요
+ * default 사용 v1
  */
 export const wagmiClient = createClient({
   autoConnect: true,
