@@ -28,8 +28,13 @@ export const projectId = "f2a5f3c0edf3b91be58dede31562a8ed";
 // 2. Configure wagmi client
 const chains = [mainnet, polygon, optimism, arbitrum, avalanche, fantom, bsc];
 const { provider } = configureChains(chains, [
-  walletConnectProvider({ projectId }),
+  walletConnectProvider({ projectId, }),
 ]);
+
+/**
+ * FIXME
+ * WC v2 사용 여부 파악 필요
+ */
 export const wagmiClient = createClient({
   autoConnect: true,
   connectors: modalConnectors({ appName: "web3Modal", chains }),
